@@ -18,7 +18,7 @@ class _SignUpState extends State<SignUp> {
   final _error = TextEditingController();
   bool showpassword = false;
 
-  Future loginUser() async {
+  Future signup() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -192,7 +192,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      loginUser();
+                      signup();
+                      _showToast(context, 'Signing in please wait');
                     },
                     child: Container(
                       width: 200,
@@ -235,6 +236,25 @@ class _SignUpState extends State<SignUp> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  void _showToast(BuildContext context, String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content: Row(
+          children: [
+            Text(
+              msg,
+              style: TextStyle(fontSize: 12),
+            ),
+            SizedBox(width: 10),
+            CupertinoActivityIndicator()
+          ],
+        ),
       ),
     );
   }

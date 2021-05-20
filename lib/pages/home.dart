@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
       body: Container(
         child: Column(
           children: [
-            Text('Hello ' + FirebaseAuth.instance.currentUser.uid),
+            Text('Hello ' + FirebaseAuth.instance.currentUser.displayName),
           ],
         ),
       ),

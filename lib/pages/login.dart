@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quickjob/pages/home.dart';
 import 'package:quickjob/pages/signup.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -137,6 +138,10 @@ class _LoginState extends State<Login> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      setState(() {
+                        _error.text = "";
+                      });
+                      _showToast(context, 'Loggin in Please Wait..');
                       loginUser();
                     },
                     child: Container(
@@ -180,6 +185,25 @@ class _LoginState extends State<Login> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  void _showToast(BuildContext context, String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 2),
+        content: Row(
+          children: [
+            Text(
+              msg,
+              style: TextStyle(fontSize: 12),
+            ),
+            SizedBox(width: 10),
+            CupertinoActivityIndicator()
+          ],
+        ),
       ),
     );
   }

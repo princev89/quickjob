@@ -121,10 +121,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        //set profile
-                        print('updating profile');
-                        if (auth.currentUser != null) print('user');
-                        print('no user');
+                        await auth.currentUser
+                            .updateProfile(displayName: _nameController.text);
 
                         Navigator.push(
                             context,
